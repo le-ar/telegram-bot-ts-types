@@ -1,9 +1,9 @@
-import InputFile from './input_file';
+import InputMedia from './input_media';
 
-class InputMediaAnimation {
+class InputMediaAnimation extends InputMedia {
     private _type: string;
     private _media: string;
-    private _thumb: InputFile | null;
+    private _thumb: Buffer | string | null;
     private _caption: string | null;
     private _parseMode: string | null;
     private _width: number | null;
@@ -13,13 +13,14 @@ class InputMediaAnimation {
     constructor(params: {
         type: string;
         media: string;
-        thumb?: InputFile | null;
+        thumb?: Buffer | string | null;
         caption?: string | null;
         parseMode?: string | null;
         width?: number | null;
         height?: number | null;
         duration?: number | null;
     }) {
+        super();
         this._type = params.type;
         this._media = params.media;
         if (typeof params.thumb === 'undefined' || params.thumb === null) {
@@ -60,7 +61,7 @@ class InputMediaAnimation {
     get media(): string {
         return this._media;
     }
-    get thumb(): InputFile | null {
+    get thumb(): Buffer | string | null {
         return this._thumb;
     }
     get caption(): string | null {

@@ -3,6 +3,10 @@ import ForceReply from '../entities/force_reply';
 
 
 let params: ConstructorParams = {
+    forceReply: {
+        required: true,
+        type: 'boolean'
+    },
     selective: {
         required: false,
         type: 'boolean'

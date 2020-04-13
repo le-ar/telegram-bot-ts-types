@@ -1,4 +1,6 @@
-class InputLocationMessageContent {
+import InputMessageContent from './input_message_content';
+
+class InputLocationMessageContent extends InputMessageContent {
     private _latitude: number;
     private _longitude: number;
     private _livePeriod: number | null;
@@ -8,6 +10,7 @@ class InputLocationMessageContent {
         longitude: number;
         livePeriod?: number | null;
     }) {
+        super();
         this._latitude = params.latitude;
         this._longitude = params.longitude;
         if (typeof params.livePeriod === 'undefined' || params.livePeriod === null) {

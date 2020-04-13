@@ -1,6 +1,7 @@
+import InlineQueryResult from './inline_query_result';
 import InlineKeyboardMarkup from './inline_keyboard_markup';
 
-class InlineQueryResultGame {
+class InlineQueryResultGame extends InlineQueryResult {
     private _type: string;
     private _id: string;
     private _gameShortName: string;
@@ -12,6 +13,7 @@ class InlineQueryResultGame {
         gameShortName: string;
         replyMarkup?: InlineKeyboardMarkup | null;
     }) {
+        super();
         this._type = params.type;
         this._id = params.id;
         this._gameShortName = params.gameShortName;

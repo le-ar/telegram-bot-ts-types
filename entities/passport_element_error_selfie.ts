@@ -1,4 +1,6 @@
-class PassportElementErrorSelfie {
+import PassportElementError from './passport_element_error';
+
+class PassportElementErrorSelfie extends PassportElementError {
     private _source: string;
     private _type: string;
     private _fileHash: string;
@@ -10,6 +12,7 @@ class PassportElementErrorSelfie {
         fileHash: string;
         message: string;
     }) {
+        super();
         this._source = params.source;
         this._type = params.type;
         this._fileHash = params.fileHash;

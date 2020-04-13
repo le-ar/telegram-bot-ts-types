@@ -1,4 +1,6 @@
-class InputMediaPhoto {
+import InputMedia from './input_media';
+
+class InputMediaPhoto extends InputMedia {
     private _type: string;
     private _media: string;
     private _caption: string | null;
@@ -10,6 +12,7 @@ class InputMediaPhoto {
         caption?: string | null;
         parseMode?: string | null;
     }) {
+        super();
         this._type = params.type;
         this._media = params.media;
         if (typeof params.caption === 'undefined' || params.caption === null) {

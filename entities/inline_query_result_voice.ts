@@ -1,7 +1,8 @@
+import InlineQueryResult from './inline_query_result';
 import InlineKeyboardMarkup from './inline_keyboard_markup';
 import InputMessageContent from './input_message_content';
 
-class InlineQueryResultVoice {
+class InlineQueryResultVoice extends InlineQueryResult {
     private _type: string;
     private _id: string;
     private _voiceUrl: string;
@@ -23,6 +24,7 @@ class InlineQueryResultVoice {
         replyMarkup?: InlineKeyboardMarkup | null;
         inputMessageContent?: InputMessageContent | null;
     }) {
+        super();
         this._type = params.type;
         this._id = params.id;
         this._voiceUrl = params.voiceUrl;

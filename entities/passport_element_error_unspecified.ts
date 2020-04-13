@@ -1,4 +1,6 @@
-class PassportElementErrorUnspecified {
+import PassportElementError from './passport_element_error';
+
+class PassportElementErrorUnspecified extends PassportElementError {
     private _source: string;
     private _type: string;
     private _elementHash: string;
@@ -10,6 +12,7 @@ class PassportElementErrorUnspecified {
         elementHash: string;
         message: string;
     }) {
+        super();
         this._source = params.source;
         this._type = params.type;
         this._elementHash = params.elementHash;

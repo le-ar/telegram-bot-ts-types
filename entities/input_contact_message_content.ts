@@ -1,4 +1,6 @@
-class InputContactMessageContent {
+import InputMessageContent from './input_message_content';
+
+class InputContactMessageContent extends InputMessageContent {
     private _phoneNumber: string;
     private _firstName: string;
     private _lastName: string | null;
@@ -10,6 +12,7 @@ class InputContactMessageContent {
         lastName?: string | null;
         vcard?: string | null;
     }) {
+        super();
         this._phoneNumber = params.phoneNumber;
         this._firstName = params.firstName;
         if (typeof params.lastName === 'undefined' || params.lastName === null) {

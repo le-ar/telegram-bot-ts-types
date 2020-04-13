@@ -1,4 +1,6 @@
-class PassportElementErrorDataField {
+import PassportElementError from './passport_element_error';
+
+class PassportElementErrorDataField extends PassportElementError {
     private _source: string;
     private _type: string;
     private _fieldName: string;
@@ -12,6 +14,7 @@ class PassportElementErrorDataField {
         dataHash: string;
         message: string;
     }) {
+        super();
         this._source = params.source;
         this._type = params.type;
         this._fieldName = params.fieldName;

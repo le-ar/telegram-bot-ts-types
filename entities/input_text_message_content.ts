@@ -1,4 +1,6 @@
-class InputTextMessageContent {
+import InputMessageContent from './input_message_content';
+
+class InputTextMessageContent extends InputMessageContent {
     private _messageText: string;
     private _parseMode: string | null;
     private _disableWebPagePreview: boolean | null;
@@ -8,6 +10,7 @@ class InputTextMessageContent {
         parseMode?: string | null;
         disableWebPagePreview?: boolean | null;
     }) {
+        super();
         this._messageText = params.messageText;
         if (typeof params.parseMode === 'undefined' || params.parseMode === null) {
             this._parseMode = null;

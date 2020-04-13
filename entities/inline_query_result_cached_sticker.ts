@@ -1,7 +1,8 @@
+import InlineQueryResult from './inline_query_result';
 import InlineKeyboardMarkup from './inline_keyboard_markup';
 import InputMessageContent from './input_message_content';
 
-class InlineQueryResultCachedSticker {
+class InlineQueryResultCachedSticker extends InlineQueryResult {
     private _type: string;
     private _id: string;
     private _stickerFileId: string;
@@ -15,6 +16,7 @@ class InlineQueryResultCachedSticker {
         replyMarkup?: InlineKeyboardMarkup | null;
         inputMessageContent?: InputMessageContent | null;
     }) {
+        super();
         this._type = params.type;
         this._id = params.id;
         this._stickerFileId = params.stickerFileId;

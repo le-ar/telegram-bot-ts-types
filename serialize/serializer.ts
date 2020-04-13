@@ -77,6 +77,15 @@ class Serializer<T> {
             }
             return result;
         }
+        if (type.indexOf(' | ') !== -1) {
+            let params = type.split(' | ');
+            for (let currType of params) {
+                if (currType in Serializer.Serializers) {
+                    return Serializer.Serializers[currType].fromJson(value);
+                }
+            }
+        }
+
         return value;
     }
 
@@ -84,8 +93,35 @@ class Serializer<T> {
         return (
             json !== null &&
             typeof json === 'object' &&
-            Object.keys(this.constructorParams).every(p => !this.constructorParams[p].required || this.paramsCamelToSnakeCase[p] in json)
+            Object.keys(this.constructorParams).every(p => !this.constructorParams[p].required || this.paramsCamelToSnakeCase[p] in json) &&
+            Object.keys(json).every(p => this.paramsSnakeToCamelCase[p] in this.constructorParams)
         );
+    }
+
+    
+
+    checkParamsAndReturnInSnakeCaseIfOk(params: any): {
+        ok: boolean;
+        params?: { [key: string]: any };
+    } {
+        let ok = (
+            params !== null &&
+            typeof params === 'object' &&
+            Object.keys(this.constructorParams).every(p => !this.constructorParams[p].required || p in params) &&
+            Object.keys(params).every(p => p in this.constructorParams)
+        );
+        if (!ok) {
+            return { ok: false };
+        }
+
+        let snakeParams: { [key: string]: any } = {};
+        for (let param in params) {
+            snakeParams[this.paramsCamelToSnakeCase[param]] = params[param];
+        }
+        return {
+            ok: true,
+            params: snakeParams
+        };
     }
 
     toJsonString(model: T): string {
@@ -100,6 +136,9 @@ class Serializer<T> {
             let param = this.constructorParams[paramName];
             if (typeof jsonModel[paramName] !== 'undefined' && jsonModel[paramName] !== null) {
                 let newParam = jsonModel[paramName];
+                if (newParam instanceof Buffer) {
+                    throw new Error('You can\'t serialize Buffer to json. Use "multipart/form-data" instead');
+                }
                 try {
                     newParam = this.serialize(newParam, param.type);
                     if (newParam === null) {
@@ -131,7 +170,16 @@ class Serializer<T> {
             }
             return result;
         }
-        return value;
+        if (type.indexOf(' | ') !== -1) {
+            let params = type.split(' | ');
+            for (let currType of params) {
+                if (currType in Serializer.Serializers) {
+                    return Serializer.Serializers[currType].toJsonObject(value);
+                }
+            }
+        }
+
+        return JSON.stringify(value);
     }
 }
 

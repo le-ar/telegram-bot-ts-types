@@ -1,4 +1,6 @@
-class InputVenueMessageContent {
+import InputMessageContent from './input_message_content';
+
+class InputVenueMessageContent extends InputMessageContent {
     private _latitude: number;
     private _longitude: number;
     private _title: string;
@@ -14,6 +16,7 @@ class InputVenueMessageContent {
         foursquareId?: string | null;
         foursquareType?: string | null;
     }) {
+        super();
         this._latitude = params.latitude;
         this._longitude = params.longitude;
         this._title = params.title;

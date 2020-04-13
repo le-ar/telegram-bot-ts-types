@@ -3,6 +3,10 @@ import ReplyKeyboardRemove from '../entities/reply_keyboard_remove';
 
 
 let params: ConstructorParams = {
+    removeKeyboard: {
+        required: true,
+        type: 'boolean'
+    },
     selective: {
         required: false,
         type: 'boolean'

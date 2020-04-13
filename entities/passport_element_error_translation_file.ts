@@ -1,4 +1,6 @@
-class PassportElementErrorTranslationFile {
+import PassportElementError from './passport_element_error';
+
+class PassportElementErrorTranslationFile extends PassportElementError {
     private _source: string;
     private _type: string;
     private _fileHash: string;
@@ -10,6 +12,7 @@ class PassportElementErrorTranslationFile {
         fileHash: string;
         message: string;
     }) {
+        super();
         this._source = params.source;
         this._type = params.type;
         this._fileHash = params.fileHash;

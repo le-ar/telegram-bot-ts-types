@@ -1,7 +1,8 @@
+import InlineQueryResult from './inline_query_result';
 import InlineKeyboardMarkup from './inline_keyboard_markup';
 import InputMessageContent from './input_message_content';
 
-class InlineQueryResultDocument {
+class InlineQueryResultDocument extends InlineQueryResult {
     private _type: string;
     private _id: string;
     private _title: string;
@@ -31,6 +32,7 @@ class InlineQueryResultDocument {
         thumbWidth?: number | null;
         thumbHeight?: number | null;
     }) {
+        super();
         this._type = params.type;
         this._id = params.id;
         this._title = params.title;
