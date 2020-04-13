@@ -1,12 +1,27 @@
 {
   "name": "telegram-bot-ts-types",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "Typescript classes for telegram (https://core.telegram.org/bots/api)",
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
   "repository": "https://github.com/le-ar/telegram-bot-ts-types",
   "author": "le-ar",
+  "keywords": [
+    "json",
+    "serialize",
+    "telegram",
+    "bot",
+    "typescript",
+    "ts",
+    "generator",
+    "types",
+    "telegram-types",
+    "typescript-types",
+    "telegram-typescript",
+    "telegram-typescript-types",
+    "telegram-bot-ts-types"
+  ],
   "license": "MIT",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
   "scripts": {
     "update": "telegram-types-generator",
     "build": "node update.js && tsc",
@@ -15,7 +30,7 @@
   "dependencies": {},
   "devDependencies": {
     "jest": "^25.2.4",
-    "typescript": "^3.8.3",
-    "telegram-types-generator": "^1.0.0"
+    "telegram-types-generator": "1.1.2",
+    "typescript": "^3.8.3"
   }
 }

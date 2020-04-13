@@ -26,7 +26,7 @@ new User({
 ## Example Serializer
 
 ```typescript
-import ChatSerializer, Chat from "telegram-bot-ts-types";
+import { ChatSerializer, Chat } from "telegram-bot-ts-types";
 
 let json = '{"id":123,"type":"private","username":"username","first_name":"Name"}';
 

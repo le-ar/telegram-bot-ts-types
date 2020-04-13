@@ -2,3 +2,4 @@
 /build
 *.lock
 package-lock.json
+*.log
