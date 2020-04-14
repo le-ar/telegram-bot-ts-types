@@ -9,3 +9,4 @@ package-lock.json
 tsconfig.json
 !*.d.ts
 /update.js
+/update.ts

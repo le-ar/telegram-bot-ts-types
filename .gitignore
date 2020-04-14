@@ -3,3 +3,4 @@
 *.lock
 package-lock.json
 *.log
+/update.js
