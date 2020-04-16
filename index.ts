@@ -42,6 +42,7 @@ export { default as InlineQueryResultVenue } from './entities/inline_query_resul
 export { default as InlineQueryResultVideo } from './entities/inline_query_result_video';
 export { default as InlineQueryResultVoice } from './entities/inline_query_result_voice';
 export { default as InputContactMessageContent } from './entities/input_contact_message_content';
+export { default as InputFile } from './entities/input_file';
 export { default as InputLocationMessageContent } from './entities/input_location_message_content';
 export { default as InputMedia } from './entities/input_media';
 export { default as InputMediaAnimation } from './entities/input_media_animation';

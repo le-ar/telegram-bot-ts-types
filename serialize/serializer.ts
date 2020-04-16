@@ -1,3 +1,6 @@
+import InputFile from '../entities/input_file';
+import FormData from 'formdata-node';
+
 type ConstructorParams = {
     [key: string]: {
         type: string,
@@ -98,8 +101,6 @@ class Serializer<T> {
         );
     }
 
-    
-
     checkParamsAndReturnInSnakeCaseIfOk(params: any): {
         ok: boolean;
         params?: { [key: string]: any };
@@ -124,11 +125,20 @@ class Serializer<T> {
         };
     }
 
+    toFormData(model: T): FormData {
+        let formData = new FormData();
+        let serialized = this.toJsonObject(model, formData);
+        for (let param in serialized) {
+            formData.set(param, JSON.stringify(serialized[param]));
+        }
+        return formData;
+    }
+
     toJsonString(model: T): string {
         return JSON.stringify(this.toJsonObject(model));
     }
 
-    toJsonObject(model: T): { [key: string]: any } {
+    toJsonObject(model: T, formData?: FormData): { [key: string]: any } {
         let json: { [key: string]: any } = {};
         let jsonModel: { [key: string]: any } = model;
 
@@ -136,8 +146,21 @@ class Serializer<T> {
             let param = this.constructorParams[paramName];
             if (typeof jsonModel[paramName] !== 'undefined' && jsonModel[paramName] !== null) {
                 let newParam = jsonModel[paramName];
-                if (newParam instanceof Buffer) {
-                    throw new Error('You can\'t serialize Buffer to json. Use "multipart/form-data" instead');
+                if (newParam instanceof InputFile) {
+                    if (!(formData instanceof FormData)) {
+                        throw new Error('You can\'t serialize Buffer to json. Use "multipart/form-data" instead');
+                    }
+                    let countFiles = 0;
+                    let countFilesFromFormData = formData.get('files__count');
+                    if (typeof countFilesFromFormData === 'string') {
+                        if (!Number.isNaN(parseInt(countFilesFromFormData))) {
+                            countFiles = parseInt(countFilesFromFormData);
+                        }
+                    }
+                    formData.append('file__' + (++countFiles), newParam.file, newParam.name);
+                    formData.set('files__count', countFiles.toString());
+                    json[this.paramsCamelToSnakeCase[paramName]] = 'attach://file__' + countFiles;
+                    continue;
                 }
                 try {
                     newParam = this.serialize(newParam, param.type);

@@ -13,7 +13,7 @@ let params: ConstructorParams = {
     },
     thumb: {
         required: false,
-        type: 'Buffer | string'
+        type: 'InputFile | string'
     },
     caption: {
         required: false,
