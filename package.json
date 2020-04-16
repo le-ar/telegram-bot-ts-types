@@ -1,6 +1,6 @@
 {
   "name": "telegram-bot-ts-types",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Typescript classes for telegram (https://core.telegram.org/bots/api)",
   "repository": "https://github.com/le-ar/telegram-bot-ts-types",
   "author": "le-ar",
@@ -24,13 +24,13 @@
   "types": "build/index.d.ts",
   "scripts": {
     "update": "telegram-types-generator",
-    "build": "node update.js && tsc",
+    "build": "tsc update.ts && node update.js && tsc",
     "prepublish": "npm run build"
   },
   "dependencies": {},
   "devDependencies": {
     "jest": "^25.2.4",
-    "telegram-types-generator": "1.2.0",
+    "telegram-types-generator": "1.2.1",
     "typescript": "^3.8.3"
   }
 }
