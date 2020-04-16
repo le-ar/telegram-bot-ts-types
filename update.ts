@@ -10,6 +10,12 @@ function transfromFileToExportString(file) {
     return 'export { default as ' + className + ' } from \'./entities/' + fileNameWithoutExtension + '\';\n';
 }
 
+function transfromMethodParamsFileToExportString(file) {
+    let fileNameWithoutExtension = file.slice(0, file.length - 3);
+    let className = fileNameWithoutExtension.replace(/(^\w|_\w)/g, clearAndUpper);
+    return 'export { default as ' + className + ' } from \'./method_params/' + fileNameWithoutExtension + '\';\n';
+}
+
 function transfromSerializeFileToExportString(file) {
     let fileNameWithoutExtension = file.slice(0, file.length - 3);
     let className = fileNameWithoutExtension.replace(/(^\w|_\w)/g, clearAndUpper);
@@ -23,6 +29,12 @@ function transfromSerializeFileToExportString(file) {
 }
 
 let indexFile = '';
+
+fs.readdirSync('./method_params/').forEach(file => {
+    if (file.endsWith('.ts')) {
+        indexFile += transfromMethodParamsFileToExportString(file);
+    }
+});
 
 fs.readdirSync('./entities/').forEach(file => {
     if (file.endsWith('.ts')) {
