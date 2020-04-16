@@ -10,3 +10,5 @@ tsconfig.json
 !*.d.ts
 /update.js
 /update.ts
+/build/update.js
+/build/update.d.ts
