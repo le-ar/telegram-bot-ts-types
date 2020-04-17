@@ -1,5 +1,4 @@
 import InputFile from '../entities/input_file';
-import FormData from 'formdata-node';
 
 type ConstructorParams = {
     [key: string]: {
@@ -126,24 +125,11 @@ class Serializer<T> {
         };
     }
 
-    toFormData(model: T): FormData {
-        let formData = new FormData();
-        let serialized = this.toJsonObject(model, formData);
-        for (let param in serialized) {
-            let val = serialized[param];
-            if (typeof val === 'object') {
-                val = JSON.stringify(val);
-            }
-            formData.set(param, val);
-        }
-        return formData;
-    }
-
     toJsonString(model: T): string {
         return JSON.stringify(this.toJsonObject(model));
     }
 
-    toJsonObject(model: T, formData?: FormData): { [key: string]: any } {
+    toJsonObject(model: T): { [key: string]: any } {
         let json: { [key: string]: any } = {};
         let jsonModel: { [key: string]: any } = model;
 
@@ -152,20 +138,7 @@ class Serializer<T> {
             if (typeof jsonModel[paramName] !== 'undefined' && jsonModel[paramName] !== null) {
                 let newParam = jsonModel[paramName];
                 if (newParam instanceof InputFile) {
-                    if (!(formData instanceof FormData)) {
-                        throw new Error('You can\'t serialize Buffer to json. Use "multipart/form-data" instead');
-                    }
-                    let countFiles = 0;
-                    let countFilesFromFormData = formData.get('files__count');
-                    if (typeof countFilesFromFormData === 'string') {
-                        if (!Number.isNaN(parseInt(countFilesFromFormData))) {
-                            countFiles = parseInt(countFilesFromFormData);
-                        }
-                    }
-                    formData.append('file__' + (++countFiles), newParam.file, newParam.name);
-                    formData.set('files__count', countFiles.toString());
-                    json[this.paramsCamelToSnakeCase[paramName]] = 'attach://file__' + countFiles;
-                    continue;
+                    throw new Error('You can\'t serialize Buffer to json. Use "multipart/form-data" instead');
                 }
                 try {
                     newParam = this.serialize(newParam, param.type);
@@ -217,4 +190,4 @@ class Serializer<T> {
 }
 
 export default Serializer;
-export { Serializer, ConstructorParams };
+export { Serializer, ConstructorParams }; 
